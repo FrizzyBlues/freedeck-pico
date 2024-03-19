@@ -1,6 +1,7 @@
 #pragma once
 #include "GFX.hpp"
 #include "button.hpp"
+#include "encoder.hpp"
 #include "sd_card.h"
 extern GFX *oled[];
 extern sd_card_t *pSD;
@@ -10,6 +11,7 @@ extern uint16_t current_page;
 extern uint16_t page_count;
 extern Button buttons[];
 extern Button encoder_buttons[];
+extern Encoder encoder_knobs[];
 extern uint32_t last_action;
 extern uint32_t last_human_action;
 extern uint32_t last_data_received;
@@ -19,11 +21,15 @@ extern bool has_json;
 void load_images(uint16_t pageIndex, bool force);
 void load_buttons(uint16_t pageIndex);
 void load_encoder_buttons(uint16_t pageIndex);
+void load_encoder_knobs(uint16_t pageIndex);
 void load_page(uint16_t pageIndex, bool force);
 void on_button_press(uint8_t buttonIndex, uint8_t secondary);
 void on_button_release(uint8_t buttonIndex, uint8_t secondary);
+void on_knob_turn_cw(uint8_t buttonIndex, uint8_t secondary);
+void on_knob_turn_ccw(uint8_t buttonIndex, uint8_t secondary);
 void check_button_state(uint8_t buttonIndex);
 void check_encoder_button_state(uint8_t buttonIndex);
+void check_encoder_knob_state(uint8_t buttonIndex);
 void post_setup();
 void sleep_task();
 void set_global_contrast(unsigned short c);

@@ -82,4 +82,6 @@
 #ifdef ENCODER 
 #define ENCODER_COUNT 2
 #define ENCODER_BUTTON_PIN { 6, 7 }
+#define ENCODER_KNOB_PIN_A { 0, 12 }
+#define ENCODER_KNOB_PIN_B { 1, 13 }
 #endif

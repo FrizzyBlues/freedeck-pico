@@ -1,5 +1,6 @@
 #include "freedeck.hpp"
 #include "button.hpp"
+#include "encoder.hpp"
 #include "freedeck_serial.hpp"
 
 #include "GFX.hpp"
@@ -14,6 +15,7 @@ uint32_t last_action = 0;
 uint32_t last_human_action = 0;
 Button buttons[BD_COUNT];
 Button encoder_buttons[ENCODER_COUNT];
+Encoder encoder_knobs[ENCODER_COUNT];
 GFX *oled[BD_COUNT];
 sd_card_t *pSD = 0;
 FIL fil;
@@ -180,6 +182,51 @@ void on_button_press(uint8_t button_index, uint8_t secondary) {
   }
 }
 
+void on_knob_turn_cw(uint8_t knob_index, uint8_t secondary) {
+  last_human_action = board_millis();
+  woke_display = wake_display_if_needed();
+  if (woke_display)
+    return;
+  uint8_t command = get_command(button_index, secondary) & 0xf;
+  if (command == 0) {
+    press_keys();
+  } else if (command == 1) {
+    next_page = get_target_page(button_index, secondary);
+    load_images(next_page, false);
+  } else if (command == 3) {
+    press_special_key();
+  } else if (command == 4) {
+    send_text();
+  } else if (command == 5) {
+    set_setting();
+  // } else if (command == 6) {
+    // emit_button_press(button_index, secondary);
+  }
+}
+
+void on_knob_turn_ccw(uint8_t knob_index, uint8_t secondary) {
+  last_human_action = board_millis();
+  woke_display = wake_display_if_needed();
+  if (woke_display)
+    return;
+  uint8_t command = get_command(button_index, secondary) & 0xf;
+  if (command == 0) {
+    press_keys();
+  } else if (command == 1) {
+    next_page = get_target_page(button_index, secondary);
+    load_images(next_page, false);
+  } else if (command == 3) {
+    press_special_key();
+  } else if (command == 4) {
+    send_text();
+  } else if (command == 5) {
+    set_setting();
+  // } else if (command == 6) {
+    // emit_button_press(button_index, secondary);
+  }
+}
+
+
 void on_button_release(uint8_t buttonIndex, uint8_t secondary) {
   last_human_action = board_millis();
   if (woke_display) {
@@ -242,6 +289,14 @@ void load_encoder_buttons(uint16_t page_index) {
   }
 }
 
+void load_encoder_knobs(uint16_t page_index) {
+    for (uint8_t knob_index = 0; knob_index < ENCODER_COUNT; knob_index++) {
+        uint8_t command = get_knob_command(knob_index, false); // Get the command for the primary action
+        uint8_t second_command = get_knob_command(knob_index, true); // Get the command for the secondary action
+        encoder_knobs[knob_index].has_secondary = second_command != 2; // Check if the secondary action exists
+    }
+}
+
 void load_page(uint16_t page_index, bool force_load_images = false) {
   current_page = page_index;
   load_images(page_index, force_load_images);
@@ -261,6 +316,14 @@ void check_encoder_button_state(uint8_t buttonIndex) {
   uint8_t encoder_button_pin[] = ENCODER_BUTTON_PIN;
   uint8_t state = gpio_get(encoder_button_pin[buttonIndex]);
   encoder_buttons[buttonIndex].update(state);
+}
+
+void check_encoder_knob_state(uint8_t buttonIndex) {
+  uint8_t encoder_button_pin_a[] = ENCODER_BUTTON_PIN_A;
+  uint8_t state_a = gpio_get(encoder_button_pin_a[buttonIndex]);
+  uint8_t encoder_button_pin_b[] = ENCODER_BUTTON_PIN_B;
+  uint8_t state_b = gpio_get(encoder_button_pin_b[buttonIndex]);
+  encoder_knobs[buttonIndex].update(state_a, state_b);
 }
 
 void load_header_info() {

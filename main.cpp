@@ -17,6 +17,7 @@ void setup() {
   init_mux();
   init_button();
   init_encoder_button();
+  init_encoder_knob();
   init_oleds(OLED_SPEED, PRE_CHARGE_PERIOD, REFRESH_FREQUENCY);
   init_sdcard();
   init_usb();
@@ -32,6 +33,7 @@ void main_loop() {
     }
     for (uint8_t i = 0; i < ENCODER_COUNT; i++) {
       check_encoder_button_state(i);
+      check_encoder_knob_state(i);
     }
   }
 }

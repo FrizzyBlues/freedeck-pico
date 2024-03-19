@@ -3,7 +3,9 @@
 
 #define ROW_SIZE 128
 
-#define BD_COUNT 6
+// #define BD_COUNT 6
+#define BD_COUNT 1
+
 #define CONFIG_NAME "config.bin"
 #define CONFIG_NAME_TEMP "config.tmp"
 #define CONFIG_NAME_OLD "config.bin.old"
@@ -16,16 +18,22 @@
 #define WAKE_ON_SET_PAGE_SERIAL // will only wake up the display if you focus a new window that has
                                 // a configurator page
 
-#define BUTTON_PIN 19
+// #define BUTTON_PIN 19
 
 #define S0_PIN 20
 #define S1_PIN 21
 #define S2_PIN 22
 // #define S3_PIN 5
 
-#define OLED_SDA 2
-#define OLED_SCL 3
+// #define OLED_SDA 2
+// #define OLED_SCL 3
 #define OLED_ADDRESS 0x3C
+
+
+#define BUTTON_PIN 11
+#define OLED_SDA 0
+#define OLED_SCL 1
+
 
 // for faster displays
 //#define OLED_SPEED 120

@@ -13,6 +13,7 @@ uint32_t last_data_received = 0;
 uint32_t last_action = 0;
 uint32_t last_human_action = 0;
 Button buttons[BD_COUNT];
+Button encoder_buttons[ENCODER_COUNT];
 GFX *oled[BD_COUNT];
 sd_card_t *pSD = 0;
 FIL fil;
@@ -233,10 +234,19 @@ void load_buttons(uint16_t page_index) {
   }
 }
 
+void load_encoder_buttons(uint16_t page_index) {
+  for (uint8_t buttonIndex = 0; buttonIndex < ENCODER_COUNT; buttonIndex++) {
+    uint8_t command = get_command(buttonIndex, false);
+    uint8_t second_command = get_command(buttonIndex, true);
+    encoder_buttons[buttonIndex].has_secondary = second_command != 2;
+  }
+}
+
 void load_page(uint16_t page_index, bool force_load_images = false) {
   current_page = page_index;
   load_images(page_index, force_load_images);
   load_buttons(page_index);
+  load_encoder_buttons(page_index);
 }
 
 void check_button_state(uint8_t buttonIndex) {
@@ -245,6 +255,12 @@ void check_button_state(uint8_t buttonIndex) {
   uint8_t state = gpio_get(BUTTON_PIN);
 
   buttons[buttonIndex].update(state);
+}
+
+void check_encoder_button_state(uint8_t buttonIndex) {
+  encoder_button_pin[] = ENCODER_BUTTON_PIN;
+  uint8_t state = gpio_get(encoder_button_pin(buttonIndex));
+  encoder_buttons[buttonIndex].update(state);
 }
 
 void load_header_info() {

@@ -1,4 +1,5 @@
 build
-.vscode/c_cpp_properties.json
-.vscode/arduino.json
+.vscode
+.vscode
 .DS_Store
+.MAC_OSX

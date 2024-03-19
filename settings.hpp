@@ -75,3 +75,11 @@
 #define ADDRESS_TO_BUTTON                                                                          \
   { 12, 14, 6, 5, 2, 11, 13, 7, 4, 1, 10, 9, 8, 3, 0 }
 #endif
+
+
+// for FrizzyBlues 6x3 pcb layout that uses 2 ec11 rotary encoders with buttons
+#define ENCODER
+#ifdef ENCODER 
+#define ENCODER_COUNT 2
+#define ENCODER_BUTTON_PIN { 6, 7 }
+#endif

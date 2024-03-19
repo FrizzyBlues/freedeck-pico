@@ -258,8 +258,8 @@ void check_button_state(uint8_t buttonIndex) {
 }
 
 void check_encoder_button_state(uint8_t buttonIndex) {
-  encoder_button_pin[] = ENCODER_BUTTON_PIN;
-  uint8_t state = gpio_get(encoder_button_pin(buttonIndex));
+  uint8_t encoder_button_pin[] = ENCODER_BUTTON_PIN;
+  uint8_t state = gpio_get(encoder_button_pin[buttonIndex]);
   encoder_buttons[buttonIndex].update(state);
 }
 

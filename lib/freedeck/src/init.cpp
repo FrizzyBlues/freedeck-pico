@@ -71,26 +71,26 @@ void init_encoder_knob() {
   // Initialize encoder knob pins
   for (int i = 0; i < ENCODER_COUNT; i++) {
     // Get pins for phase A and B of the encoder knob
-    uint8_t knob_pin_a = ENCODER_KNOB_PIN_A[i];
-    uint8_t knob_pin_b = ENCODER_KNOB_PIN_B[i];
+    uint8_t knob_pin_a[] = ENCODER_KNOB_PIN_A;
+    uint8_t knob_pin_b[] = ENCODER_KNOB_PIN_B;
     
     // Set up phase A pin
-    gpio_set_input_enabled(knob_pin_a, true);
-    gpio_init(knob_pin_a);
-    gpio_set_dir(knob_pin_a, GPIO_IN);
-    gpio_pull_up(knob_pin_a);
+    gpio_set_input_enabled(knob_pin_a[i], true);
+    gpio_init(knob_pin_a[i]);
+    gpio_set_dir(knob_pin_a[i], GPIO_IN);
+    gpio_pull_up(knob_pin_a[i]);
     
     // Set up phase B pin (if needed)
     // Note: If your encoder knobs have separate pins for phase A and B, you'll need to set up both pins similarly
-    gpio_set_input_enabled(knob_pin_b, true);
-    gpio_init(knob_pin_b);
-    gpio_set_dir(knob_pin_b, GPIO_IN);
-    gpio_pull_up(knob_pin_b);
+    gpio_set_input_enabled(knob_pin_b[i], true);
+    gpio_init(knob_pin_b[i]);
+    gpio_set_dir(knob_pin_b[i], GPIO_IN);
+    gpio_pull_up(knob_pin_b[i]);
     
     // Initialize the corresponding encoder knob
     encoder_knobs[i].index = i;
-    encoder_knobs[i].pin_a = knob_pin_a;
-    encoder_knobs[i].pin_b = knob_pin_b; // Uncomment and modify if phase B pin is used
+    encoder_knobs[i].pin_a = knob_pin_a[i];
+    encoder_knobs[i].pin_b = knob_pin_b[i]; // Uncomment and modify if phase B pin is used
     encoder_knobs[i].onCWCallback = on_knob_turn_cw; // Assign the callback function for knob turn events
     encoder_knobs[i].onCCWCallback = on_knob_turn_ccw;
   }

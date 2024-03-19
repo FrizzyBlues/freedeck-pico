@@ -5,12 +5,16 @@
 #include <pico/stdlib.h>
 
 void Encoder::update(bool new_state_a, bool new_state_b) {
+    // Check if this is the first call to update and initialize state_a and state_b if necessary
+    // pin_a = ENCODER_TURN_CW;
+    // pin_b = ENCODER_TURN_CCW;
+
     // Compare the new states of phase A and B with the current states
     // to determine the direction of the encoder turn
 
     // If the state of phase A or B has changed, a turn event has occurred
-    if (new_state_a != state_a || new_state_b != state_b) {
-        if (new_state_a == state_b) {
+    if (new_state_a != pin_a || new_state_b != pin_b) {
+        if (new_state_a == pin_b) {
             // Phase A and B are in the same state, clockwise turn
             handleCW();
         } else {
@@ -20,8 +24,8 @@ void Encoder::update(bool new_state_a, bool new_state_b) {
     }
 
     // Update the current states of phase A and B
-    state_a = new_state_a;
-    state_b = new_state_b;
+    pin_a = new_state_a;
+    pin_b = new_state_b;
 }
 
 void Encoder::handleCW() {

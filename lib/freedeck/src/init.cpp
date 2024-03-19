@@ -53,6 +53,20 @@ void init_button() {
   }
 }
 
+void init_encoder_button() {
+  // encoder button pin
+  for (int i = 0; i < ENCODER_COUNT; i++) {
+    encoder_button_pin[] = ENCODER_BUTTON_PIN
+    gpio_set_input_enabled(encoder_button_pin[i], true);
+    gpio_init(encoder_button_pin[i]);
+    gpio_set_dir(encoder_button_pin[i], GPIO_IN);
+    gpio_pull_up(encoder_button_pin[i]);
+    encoder_buttons[i].index = i;
+    encoder_buttons[i].onPressCallback = on_button_press;
+    encoder_buttons[i].onReleaseCallback = on_button_release;
+  }
+}
+
 void init_mux() {
   // mux pin 1
   gpio_init(S0_PIN);

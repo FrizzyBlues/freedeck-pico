@@ -21,7 +21,7 @@
 #define S0_PIN 20
 #define S1_PIN 21
 #define S2_PIN 22
-// #define S3_PIN 5
+#define S3_PIN 5
 
 #define OLED_SDA 2
 #define OLED_SCL 3

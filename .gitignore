@@ -1,3 +1,5 @@
-build
+build/*
+!build/freedeck-pico.uf2
+
 .vscode/c_cpp_properties.json
 .vscode/arduino.json

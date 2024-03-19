@@ -16,6 +16,7 @@ void setup() {
   stdio_init_all();
   init_mux();
   init_button();
+  init_encoder_button();
   init_oleds(OLED_SPEED, PRE_CHARGE_PERIOD, REFRESH_FREQUENCY);
   init_sdcard();
   init_usb();
@@ -28,6 +29,9 @@ void main_loop() {
     sleep_task();
     for (uint8_t i = 0; i < BD_COUNT; i++) {
       check_button_state(i);
+    }
+    for (uint8_t i = 0; i < ENCODER_COUNT; i++) {
+      check_encoder_button_state(i);
     }
   }
 }

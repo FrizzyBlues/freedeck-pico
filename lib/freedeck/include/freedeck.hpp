@@ -18,6 +18,7 @@ extern uint8_t contrast;
 extern bool has_json;
 void load_images(uint16_t pageIndex, bool force);
 void load_buttons(uint16_t pageIndex);
+void load_encoder_buttons(uint16_t pageIndex);
 void load_page(uint16_t pageIndex, bool force);
 void on_button_press(uint8_t buttonIndex, uint8_t secondary);
 void on_button_release(uint8_t buttonIndex, uint8_t secondary);

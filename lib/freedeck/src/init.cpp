@@ -39,19 +39,19 @@ void init_sdcard() {
   }
 }
 
-void init_button() {
-  // button pin
-  gpio_set_input_enabled(BUTTON_PIN, true);
-  gpio_init(BUTTON_PIN);
-  gpio_set_dir(BUTTON_PIN, GPIO_IN);
-  gpio_pull_up(BUTTON_PIN);
-
-  for (int i = 0; i < BD_COUNT; i++) {
-    buttons[i].index = i;
-    buttons[i].onPressCallback = on_button_press; // to do: only do this initially
-    buttons[i].onReleaseCallback = on_button_release;
-  }
-}
+//void init_button() {
+//  // button pin
+//  gpio_set_input_enabled(BUTTON_PIN, true);
+//  gpio_init(BUTTON_PIN);
+//  gpio_set_dir(BUTTON_PIN, GPIO_IN);
+//  gpio_pull_up(BUTTON_PIN);
+//
+//  for (int i = 0; i < BD_COUNT; i++) {
+//    buttons[i].index = i;
+//    buttons[i].onPressCallback = on_button_press; // to do: only do this initially
+//    buttons[i].onReleaseCallback = on_button_release;
+//  }
+//}
 
 void init_encoder() {
     // encoder pins

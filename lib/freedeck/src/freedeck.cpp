@@ -158,7 +158,54 @@ uint8_t get_command(uint8_t button, uint8_t secondary) {
   return command;
 }
 
-void on_button_press(uint8_t button_index, uint8_t secondary) {
+//void on_button_press(uint8_t button_index, uint8_t secondary) {
+//  last_human_action = board_millis();
+//  woke_display = wake_display_if_needed();
+//  if (woke_display)
+//    return;
+//  uint8_t command = get_command(button_index, secondary) & 0xf;
+//  if (command == 0) {
+//    press_keys();
+//  } else if (command == 1) {
+//    next_page = get_target_page(button_index, secondary);
+//    load_images(next_page, false);
+//  } else if (command == 3) {
+//    press_special_key();
+//  } else if (command == 4) {
+//    send_text();
+//  } else if (command == 5) {
+//    set_setting();
+//  } else if (command == 6) {
+//    emit_button_press(button_index, secondary);
+//  }
+//}
+//
+//void on_button_release(uint8_t buttonIndex, uint8_t secondary) {
+//  last_human_action = board_millis();
+//  if (woke_display) {
+//    woke_display = false;
+//    return;
+//  }
+//  uint8_t command = get_command(buttonIndex, secondary) & 0xf;
+//  if (command == 0) {
+//    uint8_t keycode[6] = {HID_KEY_NONE};
+//    set_keycode(keycode);
+//  } else if (command == 1) {
+//    current_page = next_page;
+//    load_buttons(current_page);
+//  } else if (command == 3) {
+//    set_special_code(HID_KEY_NONE);
+//  }
+//  f_lseek(&fil, (BD_COUNT * current_page + buttonIndex + 1) * ROW_SIZE +
+//                    (ROW_SIZE / (2 - secondary)) - 2);
+//  uint16_t page_index;
+//  f_read(&fil, &page_index, 2, NULL);
+//  if (page_index > 0) {
+//    load_page(page_index - 1, false);
+//  }
+//}
+
+void on_button_click(uint8_t button_index, uint8_t secondary) {
   last_human_action = board_millis();
   woke_display = wake_display_if_needed();
   if (woke_display)
@@ -180,28 +227,47 @@ void on_button_press(uint8_t button_index, uint8_t secondary) {
   }
 }
 
-void on_button_release(uint8_t buttonIndex, uint8_t secondary) {
+void on_turn_cw(uint8_t button_index, uint8_t secondary) {
   last_human_action = board_millis();
-  if (woke_display) {
-    woke_display = false;
+  woke_display = wake_display_if_needed();
+  if (woke_display)
     return;
-  }
-  uint8_t command = get_command(buttonIndex, secondary) & 0xf;
+  uint8_t command = get_command(button_index, secondary) & 0xf;
   if (command == 0) {
-    uint8_t keycode[6] = {HID_KEY_NONE};
-    set_keycode(keycode);
+    press_keys();
   } else if (command == 1) {
-    current_page = next_page;
-    load_buttons(current_page);
+    next_page = get_target_page(button_index, secondary);
+    load_images(next_page, false);
   } else if (command == 3) {
-    set_special_code(HID_KEY_NONE);
+    press_special_key();
+  } else if (command == 4) {
+    send_text();
+  } else if (command == 5) {
+    set_setting();
+  } else if (command == 6) {
+    emit_button_press(button_index, secondary);
   }
-  f_lseek(&fil, (BD_COUNT * current_page + buttonIndex + 1) * ROW_SIZE +
-                    (ROW_SIZE / (2 - secondary)) - 2);
-  uint16_t page_index;
-  f_read(&fil, &page_index, 2, NULL);
-  if (page_index > 0) {
-    load_page(page_index - 1, false);
+}
+
+void on_turn_ccw(uint8_t button_index, uint8_t secondary) {
+  last_human_action = board_millis();
+  woke_display = wake_display_if_needed();
+  if (woke_display)
+    return;
+  uint8_t command = get_command(button_index, secondary) & 0xf;
+  if (command == 0) {
+    press_keys();
+  } else if (command == 1) {
+    next_page = get_target_page(button_index, secondary);
+    load_images(next_page, false);
+  } else if (command == 3) {
+    press_special_key();
+  } else if (command == 4) {
+    send_text();
+  } else if (command == 5) {
+    set_setting();
+  } else if (command == 6) {
+    emit_button_press(button_index, secondary);
   }
 }
 

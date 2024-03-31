@@ -39,15 +39,15 @@ void RotaryEncoder::update(bool encoder_a_state, bool encoder_b_state, bool butt
 
 void RotaryEncoder::callOnButtonClick() {
   if (onButtonClick != NULL)
-    onButtonClick(index);
+    onButtonClick(index, false);
 }
 
 void RotaryEncoder::callOnTurnCw() {
   if (onTurnCw != NULL)
-    onTurnCw(index);
+    onTurnCw(index, false);
 }
 
 void RotaryEncoder::callOnTurnCcw() {
   if (onTurnCcw != NULL)
-    onTurnCcw(index);
+    onTurnCcw(index, false);
 }

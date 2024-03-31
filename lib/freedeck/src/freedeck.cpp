@@ -1,5 +1,6 @@
 #include "freedeck.hpp"
 #include "button.hpp"
+#include "rotary_encoder.hpp"
 #include "freedeck_serial.hpp"
 
 #include "GFX.hpp"
@@ -12,7 +13,7 @@
 uint32_t last_data_received = 0;
 uint32_t last_action = 0;
 uint32_t last_human_action = 0;
-Button buttons[BD_COUNT];
+// Button buttons[BD_COUNT];
 RotaryEncoder encoders[BD_COUNT];
 GFX *oled[BD_COUNT];
 sd_card_t *pSD = 0;
@@ -292,27 +293,36 @@ void load_images(uint16_t page_index, bool force) {
   }
 }
 
-void load_buttons(uint16_t page_index) {
+// void load_buttons(uint16_t page_index) {
+//   for (uint8_t buttonIndex = 0; buttonIndex < BD_COUNT; buttonIndex++) {
+//     uint8_t command = get_command(buttonIndex, false);
+//     uint8_t second_command = get_command(buttonIndex, true);
+//     buttons[buttonIndex].has_secondary = second_command != 2;
+//   }
+// }
+
+void load_encoders(uint16_t page_index) {
   for (uint8_t buttonIndex = 0; buttonIndex < BD_COUNT; buttonIndex++) {
     uint8_t command = get_command(buttonIndex, false);
     uint8_t second_command = get_command(buttonIndex, true);
-    buttons[buttonIndex].has_secondary = second_command != 2;
+    encoders[buttonIndex].has_secondary = second_command != 2;
   }
 }
 
 void load_page(uint16_t page_index, bool force_load_images = false) {
   current_page = page_index;
   load_images(page_index, force_load_images);
-  load_buttons(page_index);
+  // load_buttons(page_index);
+  load_encoders(page_index);
 }
 
-void check_button_state(uint8_t buttonIndex) {
-  set_mux_address(buttonIndex, TYPE_BUTTON);
-  sleep_ms(1);
-  uint8_t state = gpio_get(BUTTON_PIN);
+// void check_button_state(uint8_t buttonIndex) {
+//   set_mux_address(buttonIndex, TYPE_BUTTON);
+//   sleep_ms(1);
+//   uint8_t state = gpio_get(BUTTON_PIN);
 
-  buttons[buttonIndex].update(state);
-}
+//   buttons[buttonIndex].update(state);
+// }
 
 void check_encoder_state(uint8_t buttonIndex) {
   set_mux_address(buttonIndex, TYPE_BUTTON);

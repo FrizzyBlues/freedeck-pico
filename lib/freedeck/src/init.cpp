@@ -55,22 +55,21 @@ void init_sdcard() {
 
 void init_encoder() {
     // encoder pins
-    gpio_set_input_enabled(ENCODER_PIN_A, true);
-    gpio_set_input_enabled(ENCODER_PIN_B, true);
+    gpio_set_input_enabled(ENCODER_A_PIN, true);
+    gpio_set_input_enabled(ENCODER_B_PIN, true);
     gpio_set_input_enabled(BUTTON_PIN, true);
-    gpio_init(ENCODER_PIN_A);
-    gpio_init(ENCODER_PIN_B);
+    gpio_init(ENCODER_A_PIN);
+    gpio_init(ENCODER_B_PIN);
     gpio_init(BUTTON_PIN);
-    gpio_set_dir(ENCODER_PIN_A, GPIO_IN);
-    gpio_set_dir(ENCODER_PIN_B, GPIO_IN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
     gpio_set_dir(BUTTON_PIN, GPIO_IN);
-    gpio_pull_up(ENCODER_PIN_A);
-    gpio_pull_up(ENCODER_PIN_B);
+    gpio_pull_up(ENCODER_A_PIN);
+    gpio_pull_up(ENCODER_B_PIN);
     gpio_pull_up(BUTTON_PIN);
 
-    for (int i = 0; i < ENCODER_COUNT; i++) {
+    for (int i = 0; i < BD_COUNT; i++) {
         encoders[i].index = i;
-        encoders[i].begin();
         encoders[i].onButtonClick = on_button_click;
         encoders[i].onTurnCw = on_turn_cw;
         encoders[i].onTurnCcw = on_turn_ccw;

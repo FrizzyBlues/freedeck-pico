@@ -3,5 +3,5 @@
 void init_sdcard();
 void init_oleds(uint8_t oled_speed, uint8_t pre_charge_period, uint8_t refresh_frequency);
 //void init_button();
-void inti_encoder();
+void init_encoder();
 void init_mux();

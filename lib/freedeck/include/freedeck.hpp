@@ -1,6 +1,7 @@
 #pragma once
 #include "GFX.hpp"
 #include "button.hpp"
+#include "rotary_encoder.hpp"
 #include "sd_card.h"
 extern GFX *oled[];
 extern sd_card_t *pSD;
@@ -8,7 +9,8 @@ extern FIL fil;
 extern uint16_t image_data_offset;
 extern uint16_t current_page;
 extern uint16_t page_count;
-extern Button buttons[];
+// extern Button buttons[];
+extern RotaryEncoder encoders[];
 extern uint32_t last_action;
 extern uint32_t last_human_action;
 extern uint32_t last_data_received;

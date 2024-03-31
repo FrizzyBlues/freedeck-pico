@@ -16,14 +16,14 @@
 #define WAKE_ON_SET_PAGE_SERIAL // will only wake up the display if you focus a new window that has
                                 // a configurator page
 
-#define BUTTON_PIN 19
-#define ENCODER_A_PIN 16
-#define ENCODER_B_PIN 17
+#define BUTTON_PIN 0
+#define ENCODER_A_PIN 4
+#define ENCODER_B_PIN 5
 
-#define S0_PIN 20
-#define S1_PIN 21
-#define S2_PIN 22
-#define S3_PIN 5
+#define S0_PIN 12
+#define S1_PIN 13
+#define S2_PIN 14
+#define S3_PIN 15
 
 #define OLED_SDA 2
 #define OLED_SCL 3

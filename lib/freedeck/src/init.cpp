@@ -53,31 +53,53 @@ void init_button() {
   }
 }
 
+void init_encoder() {
+    // encoder pins
+    gpio_set_input_enabled(ENCODER_PIN_A, true);
+    gpio_set_input_enabled(ENCODER_PIN_B, true);
+    gpio_set_input_enabled(BUTTON_PIN, true);
+    gpio_init(ENCODER_PIN_A);
+    gpio_init(ENCODER_PIN_B);
+    gpio_init(BUTTON_PIN);
+    gpio_set_dir(ENCODER_PIN_A, GPIO_IN);
+    gpio_set_dir(ENCODER_PIN_B, GPIO_IN);
+    gpio_set_dir(BUTTON_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_PIN_A);
+    gpio_pull_up(ENCODER_PIN_B);
+    gpio_pull_up(BUTTON_PIN);
+
+    for (int i = 0; i < ENCODER_COUNT; i++) {
+        encoders[i].index = i;
+        encoders[i].begin();
+        encoders[i].onButtonClick = on_button_click;
+        encoders[i].onTurnCw = on_turn_cw;
+        encoders[i].onTurnCcw = on_turn_ccw;
+    }
+}
+
 void init_mux() {
   // mux pin 1
   gpio_init(S0_PIN);
   gpio_set_dir(S0_PIN, GPIO_OUT);
   gpio_pull_down(S0_PIN);
   gpio_put(S0_PIN, 0);
-#if BD_COUNT > 2
+
   // mux pin 2
   gpio_init(S1_PIN);
   gpio_set_dir(S1_PIN, GPIO_OUT);
   gpio_pull_down(S1_PIN);
   gpio_put(S1_PIN, 0);
-#endif
-#if BD_COUNT > 4
+
   // mux pin 3
   gpio_init(S2_PIN);
   gpio_set_dir(S2_PIN, GPIO_OUT);
   gpio_pull_down(S2_PIN);
   gpio_put(S2_PIN, 0);
-#endif
-#if BD_COUNT > 8
+
   // mux pin 4
   gpio_init(S3_PIN);
   gpio_set_dir(S3_PIN, GPIO_OUT);
   gpio_pull_down(S3_PIN);
   gpio_put(S3_PIN, 0);
-#endif
+
 }

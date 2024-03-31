@@ -4,6 +4,8 @@
 #define BUTTON_DOWN 0
 #define TYPE_DISPLAY 0
 #define TYPE_BUTTON 1
+#define TYPE_ENCODER_A 2
+#define TYPE_ENCODER_B 3
 
 void o_debug(const char *message, uint display = 0);
 void o_debug(uint32_t number, uint display = 0);

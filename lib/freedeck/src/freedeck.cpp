@@ -13,6 +13,7 @@ uint32_t last_data_received = 0;
 uint32_t last_action = 0;
 uint32_t last_human_action = 0;
 Button buttons[BD_COUNT];
+RotaryEncoder encoders[BD_COUNT];
 GFX *oled[BD_COUNT];
 sd_card_t *pSD = 0;
 FIL fil;
@@ -245,6 +246,22 @@ void check_button_state(uint8_t buttonIndex) {
   uint8_t state = gpio_get(BUTTON_PIN);
 
   buttons[buttonIndex].update(state);
+}
+
+void check_encoder_state(uint8_t buttonIndex) {
+  set_mux_address(buttonIndex, TYPE_BUTTON);
+  sleep_ms(1);
+  uint8_t button_state = gpio_get(BUTTON_PIN);
+
+  set_mux_address(buttonIndex, TYPE_ENCODER_A);
+  sleep_ms(1);
+  uint8_t encoder_a_state = gpio_get(ENCODER_A_PIN);
+
+  set_mux_address(buttonIndex, TYPE_ENCODER_B);
+  sleep_ms(1);
+  uint8_t encoder_b_state = gpio_get(ENCODER_B_PIN);
+
+  encoders[buttonIndex].update(encoder_a_state, encoder_b_state, button_state);
 }
 
 void load_header_info() {
